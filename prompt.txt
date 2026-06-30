@@ -36,8 +36,9 @@ Niveles jerárquicos:
    Ejemplo: "Profesional universitario" → gran_grupo="2", subgrupo_principal="99", subgrupo="99", grupo_primario="99"
 4. Si la glosa contiene información parcial, avanza hasta donde sea posible y completa el resto con "99".
    Ejemplo: "Médico" → gran_grupo="2", subgrupo_principal="22", subgrupo="99", grupo_primario="99"
-5. Si la glosa es ambigua, insuficiente (ej: "operario", "empleado", "trabajador") o no se encuentra correspondencia lógica en el manual, clasifica el Gran Grupo como "9" y el resto como "99".
-   Ejemplo: "Trabajador", "Funcionario" → gran_grupo="9", subgrupo_principal="99", subgrupo="99", grupo_primario="99"
+5. Si la glosa es ambigua, insuficiente (ej: "operario", "empleado", "trabajador") o no se encuentra correspondencia lógica en el manual, y NO puedes determinar ni siquiera el Gran Grupo, clasifica TODOS los niveles como "99".
+   Ejemplo: "Trabajador", "Funcionario" → gran_grupo="99", subgrupo_principal="99", subgrupo="99", grupo_primario="99"
+   Solo usa gran_grupo="9" cuando la glosa describa claramente una ocupación elemental (tareas simples, rutinarias, esfuerzo físico).
 6. Usa exclusivamente la información presente en la glosa. No inventes especialidades ni supongas detalles que no estén escritos.
 7. Ignora información irrelevante como ubicación geográfica, nombre de la empresa o régimen horario, a menos que ayuden a identificar la ocupación.
 
@@ -85,7 +86,7 @@ Input con múltiples glosas:
 Output:
 [
   {"id": "20", "gran_grupo": "2", "subgrupo_principal": "22", "subgrupo": "221", "grupo_primario": "2212"},
-  {"id": "21", "gran_grupo": "9", "subgrupo_principal": "99", "subgrupo": "99", "grupo_primario": "99"},
+  {"id": "21", "gran_grupo": "99", "subgrupo_principal": "99", "subgrupo": "99", "grupo_primario": "99"},
   {"id": "22", "gran_grupo": "2", "subgrupo_principal": "99", "subgrupo": "99", "grupo_primario": "99"},
   {"id": "23", "gran_grupo": "5", "subgrupo_principal": "52", "subgrupo": "522", "grupo_primario": "5223"},
   {"id": "24", "gran_grupo": "5", "subgrupo_principal": "52", "subgrupo": "523", "grupo_primario": "5230"},
@@ -93,5 +94,5 @@ Output:
   {"id": "26", "gran_grupo": "4", "subgrupo_principal": "41", "subgrupo": "412", "grupo_primario": "4120"},
   {"id": "27", "gran_grupo": "7", "subgrupo_principal": "72", "subgrupo": "721", "grupo_primario": "7212"},
   {"id": "28", "gran_grupo": "9", "subgrupo_principal": "92", "subgrupo": "921", "grupo_primario": "9211"},
-  {"id": "29", "gran_grupo": "9", "subgrupo_principal": "99", "subgrupo": "99", "grupo_primario": "99"}
+  {"id": "29", "gran_grupo": "99", "subgrupo_principal": "99", "subgrupo": "99", "grupo_primario": "99"}
 ]
