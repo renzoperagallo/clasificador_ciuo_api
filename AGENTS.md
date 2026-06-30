@@ -38,15 +38,15 @@ API_KEY=nvapi-...
 MODEL_NAME=deepseek-ai/deepseek-v4-flash
 TEMPERATURE=0.1
 MAX_TOKENS=65536
-BATCH_SIZE=250
+BATCH_SIZE=25
 MAX_RETRIES=3
 REQUEST_TIMEOUT=1800
-REQUEST_TIMEOUT=120
 ```
 
 - API: NVIDIA NIM, endpoint OpenAI-compatible (`/v1/chat/completions`)
-- Modelo principal: `deepseek-ai/deepseek-v4-flash` (~40-55s por lote de 10 glosas)
-- `deepseek-ai/deepseek-v4-pro` también está disponible pero no respondió en tier gratuito
+- Modelo principal: `deepseek-ai/deepseek-v4-flash` (~80s por lote de 25 glosas)
+- `deepseek-ai/deepseek-v4-pro` no responde en tier gratuito
+- BATCH_SIZE=25 es el máximo tolerado por la API gratuita de Nvidia (con 30 da InternalServerError)
 - Soporta cualquier API OpenAI-compatible cambiando `API_BASE_URL` y `API_KEY`
 
 ## Flujo de clasificación
@@ -170,4 +170,5 @@ openpyxl>=3.1     # Soporte .xlsx para pandas
 - Para usar otro modelo, cambiar `MODEL_NAME` en `.env`
 - El sistema build_message de `prompt_builder.py` concatena `prompt.txt` + manual del contexto
 - Si no hay `.xlsx` en `contexto/`, el sistema funciona solo con `prompt.txt`
-- La API de Nvidia es gratuita pero tiene rate limits — `REQUEST_TIMEOUT=120s` como precaución
+- La API de Nvidia es gratuita pero tiene rate limits — `REQUEST_TIMEOUT=1800s` (30 min) para lotes grandes
+- BATCH_SIZE máximo probado: 25. Con 30 o más da InternalServerError en tier gratuito

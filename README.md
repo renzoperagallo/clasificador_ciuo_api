@@ -53,17 +53,20 @@ API_BASE_URL=https://integrate.api.nvidia.com/v1
 API_KEY=nvapi-xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
 
 # Modelo a utilizar
-MODEL_NAME=deepseek-ai/deepseek-v4-pro
+MODEL_NAME=deepseek-ai/deepseek-v4-flash
 
 # Parámetros de generación
 TEMPERATURE=0.1
-MAX_TOKENS=4096
+MAX_TOKENS=65536
 
-# Tamaño del lote (glosas por llamada)
-BATCH_SIZE=10
+# Tamaño del lote (25 es el máximo en tier gratuito)
+BATCH_SIZE=25
 
 # Reintentos máximos por lote
 MAX_RETRIES=3
+
+# Timeout por request (30 min para lotes grandes)
+REQUEST_TIMEOUT=1800
 ```
 
 > **IMPORTANTE**: El archivo `.env` contiene tu API key. **Nunca** lo subas a git. Ya está incluido en `.gitignore`.
@@ -81,7 +84,6 @@ El proyecto soporta cualquier modelo disponible en la API de NVIDIA NIM (OpenAI-
 
 | Modelo | ID |
 |---|---|
-| DeepSeek V4 Pro | `deepseek-ai/deepseek-v4-pro` |
 | DeepSeek V4 Flash | `deepseek-ai/deepseek-v4-flash` |
 | Nemotron 3 Ultra | `nvidia/nemotron-3-ultra-550b-a55b` |
 | Mistral Large 3 | `mistralai/mistral-large-3-675b-instruct-2512` |
@@ -125,12 +127,21 @@ python -m src.main --input data/glosas.csv --output build/clasificadas.csv
 | `-o, --output` | Ruta al CSV de salida (obligatorio) |
 | `-m, --model` | Modelo a usar (sobrescribe .env) |
 | `-b, --batch-size` | Tamaño del lote (sobrescribe .env) |
+| `-r, --resume` | Reanuda desde el último checkpoint |
+| `-s, --status` | Muestra el progreso actual y sale |
 | `--show-config` | Muestra la configuración cargada |
 
 ### Ejemplo
 
 ```bash
-python -m src.main -i data/glosas.csv -o build/resultado.csv -b 5
+# Clasificar
+python -m src.main -i data/glosas.csv -o build/resultado.csv
+
+# Reanudar tras interrupción
+python -m src.main --resume
+
+# Ver progreso
+python -m src.main --status
 ```
 
 ## Formato de salida
@@ -143,4 +154,4 @@ El archivo CSV de salida contiene 6 columnas:
 | 2 | Trabajador | 9 | 99 | 99 | 99 |
 
 - `"99"` indica que no hay suficiente información para clasificar ese nivel
-- `gran_grupo="9"` + resto `"99"` indica una glosa inclasificable
+- `"99"` en TODOS los niveles indica una glosa completamente inclasificable
