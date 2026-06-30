@@ -37,8 +37,8 @@ API_BASE_URL=https://integrate.api.nvidia.com/v1
 API_KEY=nvapi-...
 MODEL_NAME=deepseek-ai/deepseek-v4-flash
 TEMPERATURE=0.1
-MAX_TOKENS=4096
-BATCH_SIZE=10
+MAX_TOKENS=65536
+BATCH_SIZE=500
 MAX_RETRIES=3
 REQUEST_TIMEOUT=120
 ```
