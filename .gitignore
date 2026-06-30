@@ -13,6 +13,9 @@ dist/
 # Archivos de salida clasificados
 build/*.csv
 
+# Checkpoint de clasificación
+build/.checkpoint.json
+
 # IDE
 .vscode/
 .idea/

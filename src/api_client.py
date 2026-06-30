@@ -35,7 +35,15 @@ def chat_completion(messages, model=None, temperature=None, max_tokens=None):
                 temperature=temperature,
                 max_tokens=max_tokens,
             )
-            return response.choices[0].message.content
+            usage = response.usage
+            return {
+                "content": response.choices[0].message.content,
+                "usage": {
+                    "prompt_tokens": usage.prompt_tokens if usage else 0,
+                    "completion_tokens": usage.completion_tokens if usage else 0,
+                    "total_tokens": usage.total_tokens if usage else 0,
+                },
+            }
         except Exception as e:
             last_exception = e
             if attempt < MAX_RETRIES:
