@@ -12,7 +12,7 @@ TEMPERATURE = float(os.getenv("TEMPERATURE", "0.1"))
 MAX_TOKENS = int(os.getenv("MAX_TOKENS", "4096"))
 BATCH_SIZE = int(os.getenv("BATCH_SIZE", "10"))
 MAX_RETRIES = int(os.getenv("MAX_RETRIES", "3"))
-REQUEST_TIMEOUT = int(os.getenv("REQUEST_TIMEOUT", "120"))
+REQUEST_TIMEOUT = int(os.getenv("REQUEST_TIMEOUT", "1800"))
 
 
 def validate():
@@ -33,4 +33,5 @@ def to_dict():
         "MAX_TOKENS": MAX_TOKENS,
         "BATCH_SIZE": BATCH_SIZE,
         "MAX_RETRIES": MAX_RETRIES,
+        "REQUEST_TIMEOUT": REQUEST_TIMEOUT,
     }
