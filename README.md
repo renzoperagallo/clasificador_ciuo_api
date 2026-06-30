@@ -151,7 +151,7 @@ El archivo CSV de salida contiene 6 columnas:
 | id | glosa | gran_grupo | subgrupo_principal | subgrupo | grupo_primario |
 |---|---|---|---|---|---|
 | 1 | Médico cirujano en hospital público | 2 | 22 | 221 | 2212 |
-| 2 | Trabajador | 9 | 99 | 99 | 99 |
+| 2 | Trabajador | 99 | 99 | 99 | 99 |
 
 - `"99"` indica que no hay suficiente información para clasificar ese nivel
 - `"99"` en TODOS los niveles indica una glosa completamente inclasificable
