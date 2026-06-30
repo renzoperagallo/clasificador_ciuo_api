@@ -173,11 +173,32 @@ def classify_csv(input_path, output_path, model=None, batch_size=None,
             stats["completion_tokens"] += usage.get("completion_tokens", 0)
             stats["total_tokens"] += usage.get("total_tokens", 0)
         else:
-            print(f"  Marcando lote como '99' por falla de API.",
-                  file=sys.stderr)
-            for item in batch:
-                all_results.append(_fallback_result(item))
-            stats["batches_fallback_99"] += 1
+            elapsed_total = time.time() - start_time
+            write_output(output_path, all_results)
+            save_checkpoint(
+                processed=len(all_results),
+                total=total,
+                input_file=input_path,
+                output_file=output_path,
+                batch_size=batch_size,
+                elapsed=elapsed_total,
+                stats=stats,
+            )
+            print(
+                f"\nERROR: API no respondió tras {MAX_RETRIES} intentos "
+                f"en lote {batch_num}/{total_batches}.",
+                file=sys.stderr,
+            )
+            print(
+                f"Progreso guardado: {len(all_results)}/{total} glosas "
+                f"({len(all_results)/total*100:.1f}%).",
+                file=sys.stderr,
+            )
+            print(
+                "Ejecuta nuevamente con --resume para continuar.",
+                file=sys.stderr,
+            )
+            return
 
         progress = len(all_results)
 
