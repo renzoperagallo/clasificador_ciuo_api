@@ -1,0 +1,24 @@
+# Entorno virtual
+venv/
+.venv/
+env/
+__pycache__/
+*.py[cod]
+*.egg-info/
+dist/
+
+# Variables de entorno (contiene API keys)
+.env
+
+# Archivos de salida clasificados
+build/*.csv
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Sistema
+.DS_Store
+Thumbs.db
