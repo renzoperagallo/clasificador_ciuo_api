@@ -1,10 +1,23 @@
 import time
 from openai import OpenAI
-from src.config import API_BASE_URL, API_KEY, MODEL_NAME, TEMPERATURE, MAX_TOKENS, MAX_RETRIES
+from src.config import (
+    API_BASE_URL,
+    API_KEY,
+    MODEL_NAME,
+    TEMPERATURE,
+    MAX_TOKENS,
+    MAX_RETRIES,
+    REQUEST_TIMEOUT,
+)
 
 
 def _create_client():
-    return OpenAI(base_url=API_BASE_URL, api_key=API_KEY)
+    return OpenAI(
+        base_url=API_BASE_URL,
+        api_key=API_KEY,
+        timeout=REQUEST_TIMEOUT,
+        max_retries=0,
+    )
 
 
 def chat_completion(messages, model=None, temperature=None, max_tokens=None):

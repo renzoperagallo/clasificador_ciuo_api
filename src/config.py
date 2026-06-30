@@ -12,6 +12,7 @@ TEMPERATURE = float(os.getenv("TEMPERATURE", "0.1"))
 MAX_TOKENS = int(os.getenv("MAX_TOKENS", "4096"))
 BATCH_SIZE = int(os.getenv("BATCH_SIZE", "10"))
 MAX_RETRIES = int(os.getenv("MAX_RETRIES", "3"))
+REQUEST_TIMEOUT = int(os.getenv("REQUEST_TIMEOUT", "120"))
 
 
 def validate():
