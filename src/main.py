@@ -5,6 +5,10 @@ from src.classifier import classify_csv
 from src.checkpoint import load as load_checkpoint
 from src.checkpoint import get_progress
 
+sys.stdout.reconfigure(line_buffering=True) if hasattr(
+    sys.stdout, "reconfigure"
+) else None
+
 
 def main():
     parser = argparse.ArgumentParser(
@@ -104,6 +108,7 @@ def main():
                   file=sys.stderr)
             sys.exit(1)
 
+        print(f"Iniciando clasificación: {args.input} → {args.output}")
         classify_csv(
             input_path=args.input,
             output_path=args.output,

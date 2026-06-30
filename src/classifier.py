@@ -80,8 +80,10 @@ def classify_csv(input_path, output_path, model=None, batch_size=None,
 
     from src.csv_handler import read_input, read_output, write_output
 
+    print(f"Leyendo {input_path}...")
     rows = read_input(input_path)
     total = len(rows)
+    print(f"  {total} glosas cargadas.")
     if not rows:
         print("Error: El archivo CSV de entrada está vacío", file=sys.stderr)
         return
