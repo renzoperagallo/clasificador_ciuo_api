@@ -116,3 +116,7 @@ def main():
             batch_size=args.batch_size,
             resume=False,
         )
+
+
+if __name__ == "__main__":
+    main()
